@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\backend\AuthenticationController;
+use App\Http\Controllers\backend\MasterPageController;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +20,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Authenticatable
+
 Route::controller(AuthenticationController::class)->group(function () {
     Route::get('/login', 'login')->name('user.login');
-    Route::get('/register', 'register')->name('user.register');
+    Route::get('/signup', 'register')->name('user.signup');
    
+})->middleware(AuthenticationController::class);
+
+
+
+Route::controller(MasterPageController::class)->group(function(){
+    route::get('/Home','index')->name('admin.home');
 });
